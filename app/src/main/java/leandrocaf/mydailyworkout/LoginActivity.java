@@ -47,13 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         btnSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                singUp();
+               register();
             }
         });
 
     }
 
-
+    private void register() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        this.startActivity(intent);
+    };
 
     private void login() {
         ParseUser.logInInBackground(this.userName.getText().toString(), this.password.getText().toString(), new LogInCallback() {
@@ -86,26 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void singUp() {
-        ParseUser user = new ParseUser();
-        user.setUsername(this.userName.getText().toString());
-        user.setPassword(this.password.getText().toString());
-        user.setEmail("email@example.com");
-//
-//        user.put("phone", "650-253-0000");
 
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(getBaseContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                    userName.setText("");
-                    password.setText("");
-                } else {
-                    Toast.makeText(getBaseContext(), "Erro ao cadastrar! " +e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 
     @Override
