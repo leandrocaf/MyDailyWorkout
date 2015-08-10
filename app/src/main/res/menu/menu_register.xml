@@ -3,13 +3,18 @@
     tools:context="com.example.sample.YourActivity"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
 
-    <item android:id="@+id/action_logout" android:title="Sair"
-        android:orderInCategory="100" yourapp:showAsAction="never" />
     <item
         android:id="@+id/action_save"
         android:orderInCategory="100"
-        android:title="Save"
+        android:icon="@drawable/create_button"
+        android:title=""
+        yourapp:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:icon="@drawable/close_button"
+        android:title=""
         yourapp:showAsAction="ifRoom" />
 
 

@@ -1,10 +1,10 @@
 package leandrocaf.mydailyworkout;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -31,16 +31,6 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
 
         loadFields();
-
-        Button btnCadastrar = (Button)findViewById(R.id.buttonCadastrar);
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                singUp();
-            }
-        });
-
-
     }
 
     private void loadFields() {
@@ -115,5 +105,11 @@ public class RegisterActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

@@ -13,6 +13,8 @@
         android:hint="usuário"
         android:layout_alignRight="@+id/editTextPassword"
         android:layout_alignEnd="@+id/editTextPassword"
+        android:textColor="@color/material_deep_teal_500"
+        android:backgroundTint="@color/material_deep_teal_500"
         android:layout_alignLeft="@+id/editTextPassword"
         android:layout_alignStart="@+id/editTextPassword" />
 
@@ -22,6 +24,8 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editTextPassword"
+        android:textColor="@color/material_deep_teal_500"
+        android:backgroundTint="@color/material_deep_teal_500"
         android:layout_below="@+id/editTextLogin"
         android:layout_centerHorizontal="true"
         android:hint="senha" />
@@ -31,16 +35,20 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/buttonLogin"
+        android:backgroundTint="@color/material_deep_teal_500"
+        android:textColor="@color/background_material_light"
         android:layout_below="@+id/editTextPassword"
-        android:layout_alignRight="@+id/editTextPassword"
-        android:layout_alignEnd="@+id/editTextPassword" />
+        android:layout_alignLeft="@+id/editTextPassword"
+        android:layout_alignStart="@+id/editTextPassword" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cadastrar-se"
         android:id="@+id/buttonSignUp"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_alignRight="@+id/buttonLogin"
-        android:layout_alignEnd="@+id/buttonLogin" />
+        android:backgroundTint="@color/material_blue_grey_900"
+        android:textColor="@color/background_material_light"
+        android:layout_alignTop="@+id/buttonLogin"
+        android:layout_toRightOf="@+id/buttonLogin"
+        android:layout_toEndOf="@+id/buttonLogin" />
 </RelativeLayout>
