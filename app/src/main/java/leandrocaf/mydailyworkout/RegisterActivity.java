@@ -55,22 +55,46 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void singUp() {
-        ParseUser user = new ParseUser();
-        user.setUsername(this.userLogin.getText().toString());
-        user.setPassword(this.password.getText().toString());
-        user.setEmail(this.email.getText().toString());
-        user.put("genre", this.genre.isChecked() ? "M" : "F");
 
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(getBaseContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                    userLogin.setText("");
-                    password.setText("");
-                } else {
-                    Toast.makeText(getBaseContext(), "Erro ao cadastrar! " +e.getMessage(), Toast.LENGTH_SHORT).show();
+        if(verifyFields()){
+            ParseUser user = new ParseUser();
+            user.setUsername(this.userLogin.getText().toString());
+            user.setPassword(this.password.getText().toString());
+            user.setEmail(this.email.getText().toString());
+            user.put("genre", this.genre.isChecked() ? "M" : "F");
+            user.put("age", Integer.getInteger(this.age.getText().toString()));
+            user.put("wight", Integer.getInteger(this.weight.getText().toString()));
+            user.put("name", this.name.getText().toString());
+
+            user.signUpInBackground(new SignUpCallback() {
+                public void done(ParseException e) {
+                    if (e == null) {
+                        Toast.makeText(getBaseContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                        userLogin.setText("");
+                        password.setText("");
+                    } else {
+                        Toast.makeText(getBaseContext(), "Erro ao cadastrar! " +e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
+            });
+        }
+
+
+    }
+
+    private Boolean verifyFields(){
+        if(this.name.getText().toString().equals("") || this.age.getText().toString().equals("") ||
+                this.weight.getText().toString().equals("") ||
+                this.email.getText().toString().equals("") || this.userLogin.getText().toString().equals("") ||
+                this.password.getText().toString().equals("") || this.confirmPassword.getText().toString().equals("")){
+            Toast.makeText(getBaseContext(), "É necessário preencher todos os campos para o cadastro!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if(this.password.getText().equals(this.confirmPassword.getText())){
+                Toast.makeText(getBaseContext(), "Senha inválida. Verifique se o campo confirmar senha está preenchido corretamente e se a senha possuir ao menos 4 caracteres", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });
+        }
+        return true;
     }
 }
