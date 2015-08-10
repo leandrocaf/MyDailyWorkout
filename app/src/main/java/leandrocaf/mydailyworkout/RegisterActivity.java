@@ -86,7 +86,7 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(getBaseContext(), "É necessário preencher todos os campos para o cadastro!", Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            if(this.password.getText().equals(this.confirmPassword.getText())){
+            if(!this.password.getText().toString().equals(this.confirmPassword.getText().toString())){
                 Toast.makeText(getBaseContext(), "Senha inválida. Verifique se o campo confirmar senha está preenchido corretamente e se a senha possuir ao menos 4 caracteres", Toast.LENGTH_SHORT).show();
                 return false;
             }

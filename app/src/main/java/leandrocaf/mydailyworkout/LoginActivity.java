@@ -1,15 +1,12 @@
 package leandrocaf.mydailyworkout;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -22,6 +19,8 @@ public class LoginActivity extends BaseActivity {
     private ParseUser loggedUser;
     private EditText userName;
     private EditText password;
+    private ProgressBar spinner;
+    private RelativeLayout layoutLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +29,6 @@ public class LoginActivity extends BaseActivity {
 
         this.userName = (EditText)findViewById(R.id.editTextLogin);
         this.password = (EditText)findViewById(R.id.editTextPassword);
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "bgE7ilcmKK05ukAypIxLiQQamsnSeyVlUDl1WOUb", "o13tP61th9ihWgK8mzWJH5hGnOFy9Pzx4oXl5SC2");
 
         Button btnLogin = (Button)findViewById(R.id.buttonLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +46,11 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        layoutLogin = (RelativeLayout)findViewById(R.id.layoutLogin);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
+
     }
 
     private void register() {
@@ -60,15 +59,18 @@ public class LoginActivity extends BaseActivity {
     };
 
     private void login() {
+        showLoading(true);
         ParseUser.logInInBackground(this.userName.getText().toString(), this.password.getText().toString(), new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
+                    showLoading(false);
                     Toast.makeText(getBaseContext(), "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
                     loggedUser = user;
                     password.setText("");
                     goToHomeScreen();
 
                 } else {
+                    showLoading(false);
                     Toast.makeText(getBaseContext(), "Ops!" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -81,11 +83,26 @@ public class LoginActivity extends BaseActivity {
 
         if(loggedUser.getBoolean("admin")){
             intent = new Intent(this, AdminActivity.class);
-//            myIntent.putExtra("key", value); //Optional parameter
         } else {
             intent = new Intent(this, UserActivity.class);
         }
 
         this.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
+
+    private void showLoading(Boolean show){
+        if(show) {
+            spinner.setVisibility(View.VISIBLE);
+            layoutLogin.setVisibility(View.GONE);
+        } else {
+            spinner.setVisibility(View.GONE);
+            layoutLogin.setVisibility(View.VISIBLE);
+        }
     }
 }
