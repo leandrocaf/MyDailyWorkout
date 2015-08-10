@@ -1,8 +1,8 @@
 package leandrocaf.mydailyworkout;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,20 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.util.List;
-
 public class LoginActivity extends AppCompatActivity {
 
+    private ParseUser loggedUser;
     private EditText userName;
     private EditText password;
 
@@ -65,12 +60,29 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     Toast.makeText(getBaseContext(), "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                    loggedUser = user;
+                    password.setText("");
+                    goToHomeScreen();
+
                 } else {
                     Toast.makeText(getBaseContext(), "Ops!" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    private void goToHomeScreen(){
+        Intent intent;
+
+        if(loggedUser.getBoolean("admin")){
+            intent = new Intent(this, AdminActivity.class);
+//            myIntent.putExtra("key", value); //Optional parameter
+        } else {
+            intent = new Intent(this, UserActivity.class);
+        }
+
+        this.startActivity(intent);
     }
 
 
@@ -86,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(getBaseContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                    userName.setText("");
+                    password.setText("");
                 } else {
                     Toast.makeText(getBaseContext(), "Erro ao cadastrar! " +e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
