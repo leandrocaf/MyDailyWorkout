@@ -1,7 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="leandrocaf.mydailyworkout.RegisterActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="schemas.android.com/tools"
+    tools:context="com.example.sample.YourActivity"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
+    <item android:id="@+id/action_logout" android:title="Sair"
+        android:orderInCategory="100" yourapp:showAsAction="never" />
+    <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:title="Save"
+
+        yourapp:showAsAction="ifRoom" />
+
+
 </menu>

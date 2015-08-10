@@ -62,16 +62,15 @@ public class RegisterActivity extends BaseActivity {
             user.setPassword(this.password.getText().toString());
             user.setEmail(this.email.getText().toString());
             user.put("genre", this.genre.isChecked() ? "M" : "F");
-            user.put("age", Integer.getInteger(this.age.getText().toString()));
-            user.put("wight", Integer.getInteger(this.weight.getText().toString()));
+            user.put("age", Integer.parseInt(this.age.getText().toString()));
+            user.put("wight", Integer.parseInt(this.weight.getText().toString()));
             user.put("name", this.name.getText().toString());
 
             user.signUpInBackground(new SignUpCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
                         Toast.makeText(getBaseContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                        userLogin.setText("");
-                        password.setText("");
+                        finish();
                     } else {
                         Toast.makeText(getBaseContext(), "Erro ao cadastrar! " +e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -81,6 +80,13 @@ public class RegisterActivity extends BaseActivity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_register, menu);
+        return true;
+    }
+
 
     private Boolean verifyFields(){
         if(this.name.getText().toString().equals("") || this.age.getText().toString().equals("") ||
@@ -96,5 +102,18 @@ public class RegisterActivity extends BaseActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_save) {
+            singUp();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
