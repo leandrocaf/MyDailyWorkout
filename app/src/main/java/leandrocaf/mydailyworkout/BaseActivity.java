@@ -42,6 +42,8 @@ public class BaseActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             finish();
             return true;
+            
+
         }
 
         return super.onOptionsItemSelected(item);
